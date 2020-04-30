@@ -1,3 +1,7 @@
+import classes.RecordAudio;
+import classes.SendPictureThread;
+
+import javax.sound.sampled.LineUnavailableException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -14,12 +18,14 @@ public class Main {
             String path = properties.getProperty("PATH_TO_FILES");
             String glob = properties.getProperty("GLOB");
 
-            SendThread sendThread = new SendThread(token, path, glob);
-            sendThread.start();
+//            RecordAudio recordAudio = new RecordAudio();
+//            recordAudio.saveAudioToLocal();
+
+            SendPictureThread sendPictureThread = new SendPictureThread(token, path, glob);
+            sendPictureThread.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         int availableProcessors = Runtime.getRuntime().availableProcessors();
         int threadSetSize = Thread.activeCount();
@@ -30,4 +36,5 @@ public class Main {
             System.err.println("Thread overload!");
         }
     }
+
 }
